@@ -59,12 +59,16 @@ const AddActivity = (props) => {
          <form onSubmit={addUserHandler}>
             {/* htmlFor and id are used for screen readers. They connect the label to the input */}
             <label htmlFor="type">Type</label>
-            <input
-               id="type"
-               type="text"
-               value={enteredType}
-               onChange={typeChangeHandler}
-            />
+            <select id="type" onChange={typeChangeHandler}>
+               <option value="education">Education</option>
+               <option value="recreational">Recreational</option>
+               <option value="social">Social</option>
+               <option value="charity">Charity</option>
+               <option value="cooking">Cooking</option>
+               <option value="relaxation">Relaxation</option>
+               <option value="music">Music</option>
+               <option value="busywork">Busywork</option>
+            </select>
             <label htmlFor="participants">Participants</label>
             <input
                id="participant"
