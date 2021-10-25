@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Card from "./UI/Card";
 import classes from "./SearchActivity.module.css";
 import Button from "./UI/Button";
@@ -13,8 +13,24 @@ const SearchActivity = (props) => {
       useState("");
    const [enteredActivityPrice, setEnteredActivityPrice] = useState("");
 
+
+
+    function categoryReset() {
+       var dropDown = document.getElementById("category");
+       dropDown.selectedIndex = 0;
+    }
+
+    function participantReset() {
+       var dropDown = document.getElementById("participant");
+       dropDown.selectedIndex = 0;
+    }
+
+
    // function to update url based on Category
    async function categoryResult() {
+
+      participantReset();
+
       if (enteredType) {
          let result = await fetch(
             `https://www.boredapi.com/api/activity?type=${enteredType}`
@@ -30,6 +46,9 @@ const SearchActivity = (props) => {
    }
 
    async function participantResult() {
+
+      categoryReset();
+
       if (enteredParticipant) {
          let result = await fetch(
             `https://www.boredapi.com/api/activity?particpants=${parseInt(
@@ -67,9 +86,10 @@ const SearchActivity = (props) => {
       // setEnteredParticipant("");
       // setEnteredType("");
       // setEnteredPrice("");
+
       // instead of console.log the data from username and age input, we use props and point to a function
       // (that was defined in App.js) to add the name and age to the empty state array
-      props.onSearchActivity(enteredType, enteredParticipant, enteredPrice);
+      // props.onSearchActivity(enteredType, enteredParticipant, enteredPrice);
    };
 
    function changePriceToDollars(scale) {
@@ -88,13 +108,21 @@ const SearchActivity = (props) => {
       }
    }
 
+   // useEffect(() => {
+   //    fetch(`https://www.boredapi.com/api/activity?type=${enteredType}`)
+   //     .then(response => response.json())
+   //     .then(json => console.log(json))
+   // }, [enteredType]);
+
    return (
-      <div>
+      <>
+         {/* <Button onClick={() => setEnteredType(enteredType)}>Category</Button> */}
+
          <Card className={classes.input}>
             <form onSubmit={searchActivityHandler}>
                <label htmlFor="Category">Category</label>
-               <select onChange={typeChangeHandler}>
-                  <option value="default-category">Choose Category...</option>
+               <select id="category" onChange={typeChangeHandler}>
+                  <option value="false">Choose Category...</option>
                   <option value="education">Education</option>
                   <option value="recreational">Recreational</option>
                   <option value="social">Social</option>
@@ -111,10 +139,8 @@ const SearchActivity = (props) => {
 
             <form onSubmit={searchActivityHandler}>
                <label htmlFor="participants">Participants</label>
-               <select onChange={participantChangeHandler}>
-                  <option value="default-participants">
-                     Choose Participants...
-                  </option>
+               <select id="participant" onChange={participantChangeHandler}>
+                  <option value="false">Choose Participants...</option>
                   <option value="1">1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
@@ -160,7 +186,7 @@ const SearchActivity = (props) => {
                </p>
             )}
          </Card>
-      </div>
+      </>
    );
 };
 
