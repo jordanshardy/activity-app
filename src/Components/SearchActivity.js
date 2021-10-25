@@ -7,53 +7,65 @@ const SearchActivity = (props) => {
    const [enteredType, setEnteredType] = useState("");
    const [enteredParticipant, setEnteredParticipant] = useState("");
    const [enteredPrice, setEnteredPrice] = useState("");
-   const [enteredAccessibility, setEnteredAccessibility] = useState("");
+
+   async function getResult() {
+      let result = await fetch("https://www.boredapi.com/api/activity/");
+      const activities = await result.json();
+      console.log(activities);
+      //  setRandomActivity(activities.activity);
+      //  setRandomActivityParticipants(activities.participants);
+      //  setRandomActivityPrice(activities.price);
+   }
 
    const typeChangeHandler = (event) => {
       setEnteredType(event.target.value);
    };
 
-   const participantChangeHandler = (event) => {
-      setEnteredParticipant(event.target.value);
-   };
+   // const participantChangeHandler = (event) => {
+   //    setEnteredParticipant(event.target.value);
+   // };
 
-   const handleCheckboxtype = (event) => {
-      setEnteredPrice(event.target.value);
-   };
+   // const handleCheckboxtype = (event) => {
+   //    setEnteredPrice(event.target.value);
+   // };
 
-   const accessibilityChangeHandler = (event) => {
-      setEnteredAccessibility(event.target.value);
-   };
+   // const accessibilityChangeHandler = (event) => {
+   //    setEnteredAccessibility(event.target.value);
+   // };
 
-   const addUserHandler = (event) => {
+   const searchActivityHandler = (event) => {
+      getResult();
+
       // preventDefault prevents the url from printing the value from the form
       event.preventDefault();
-      // if (
-      //    enteredParticipants.trim().length === 0 ||
-      //    enteredType.trim().length === 0
-      // ) {
-      //    return;
-      // }
+
       // if (enteredParticipants.parseInt < 1) {
       //    return;
       // }
       setEnteredParticipant("");
       setEnteredType("");
-      setEnteredAccessibility("");
       setEnteredPrice("");
       // instead of console.log the data from username and age input, we use props and point to a function
       // (that was defined in App.js) to add the name and age to the empty state array
-      props.onSearchActivity(
-         enteredType,
-         enteredParticipant,
-         enteredPrice,
-         enteredAccessibility
-      );
+      props.onSearchActivity(enteredType, enteredParticipant, enteredPrice);
    };
+
+   // const searchApi = () => {
+   //    console.log(getResult());
+
+   //    async function getResult() {
+   //    const result = await fetch("https://www.boredapi.com/api/activity/");
+   //    const activities = await result.json();
+   //    console.log(activities);
+   //    //  setRandomActivity(activities.activity);
+   //    //  setRandomActivityParticipants(activities.participants);
+   //    //  setRandomActivityPrice(activities.price);
+   // }
+   // };
 
    return (
       <Card className={classes.input}>
-         <form onSubmit={addUserHandler}>
+         <form onSubmit={searchActivityHandler}>
             <label htmlFor="type">Type</label>
             <select id="type" onChange={typeChangeHandler}>
                <option value="education">Education</option>
@@ -65,7 +77,7 @@ const SearchActivity = (props) => {
                <option value="music">Music</option>
                <option value="busywork">Busywork</option>
             </select>
-            <label htmlFor="participants">Participants</label>
+            {/* <label htmlFor="participants">Participants</label>
             <input
                id="participant"
                type="number"
@@ -108,7 +120,7 @@ const SearchActivity = (props) => {
                   name="prices"
                   value="1"
                />
-            </div>
+            </div> */}
             <Button type="submit">Search Activity</Button>
          </form>
       </Card>

@@ -5,7 +5,7 @@ import ActivityList from "./ActivityList";
 const Home = () => {
    const [activityList, setActivityList] = useState([]);
 
-   const searchActivityHandler = (type, participants, price, accessibility) => {
+   const searchActivityHandler = (type, participants, price,) => {
       setActivityList((prevActivityList) => {
          return [
             ...prevActivityList,
@@ -13,8 +13,6 @@ const Home = () => {
                type: type,
                participant: participants,
                price: price,
-               accessibility: accessibility,
-               id: Math.random().toString(),
             },
          ];
       });
