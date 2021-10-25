@@ -5,7 +5,7 @@ import Button from "./UI/Button";
 
 const SearchActivity = (props) => {
    const [enteredType, setEnteredType] = useState("");
-   const [enteredParticipant, setEnteredParticipant] = useState("");
+   const [enteredParticipant, setEnteredParticipant] = useState(0);
    const [enteredPrice, setEnteredPrice] = useState("");
 
    const [enteredActivity, setEnteredActivity] = useState("");
@@ -13,62 +13,64 @@ const SearchActivity = (props) => {
       useState("");
    const [enteredActivityPrice, setEnteredActivityPrice] = useState("");
 
-   async function getResult() {
-      let result = await fetch(
-         `https://www.boredapi.com/api/activity?type=${enteredType}`
-      );
-      const activities = await result.json();
-      console.log(activities);
-      setEnteredActivity(activities.activity);
-      setenteredActivityParticipants(activities.participants);
-      setEnteredActivityPrice(activities.price);
+   // function to update url based on Category
+   async function categoryResult() {
+      if (enteredType) {
+         let result = await fetch(
+            `https://www.boredapi.com/api/activity?type=${enteredType}`
+         );
+         const activities = await result.json();
+         console.log(activities);
+         setEnteredActivity(activities.activity);
+         setenteredActivityParticipants(activities.participants);
+         setEnteredActivityPrice(activities.price);
+      } else {
+         return;
+      }
+   }
+
+   async function participantResult() {
+      if (enteredParticipant) {
+         let result = await fetch(
+            `https://www.boredapi.com/api/activity?particpants=${parseInt(
+               enteredParticipant
+            )}`
+         );
+         const activities = await result.json();
+         console.log(activities);
+         console.log(parseInt(enteredParticipant));
+         setEnteredActivity(activities.activity);
+         setenteredActivityParticipants(activities.participants);
+         setEnteredActivityPrice(activities.price);
+      } else {
+         return;
+      }
    }
 
    const typeChangeHandler = (event) => {
       setEnteredType(event.target.value);
    };
 
-   // const participantChangeHandler = (event) => {
-   //    setEnteredParticipant(event.target.value);
-   // };
+   const participantChangeHandler = (event) => {
+      setEnteredParticipant(event.target.value);
+   };
 
-   // const handleCheckboxtype = (event) => {
-   //    setEnteredPrice(event.target.value);
-   // };
-
-   // const accessibilityChangeHandler = (event) => {
-   //    setEnteredAccessibility(event.target.value);
-   // };
+   const priceChangeHandler = (event) => {
+      setEnteredPrice(event.target.value);
+   };
 
    const searchActivityHandler = (event) => {
-      getResult();
-
+      // categoryResult();
+      // participantsResult();
       // preventDefault prevents the url from printing the value from the form
       event.preventDefault();
-
-      // if (enteredParticipants.parseInt < 1) {
-      //    return;
-      // }
-      setEnteredParticipant("");
-      setEnteredType("");
-      setEnteredPrice("");
+      // setEnteredParticipant("");
+      // setEnteredType("");
+      // setEnteredPrice("");
       // instead of console.log the data from username and age input, we use props and point to a function
       // (that was defined in App.js) to add the name and age to the empty state array
       props.onSearchActivity(enteredType, enteredParticipant, enteredPrice);
    };
-
-   // const searchApi = () => {
-   //    console.log(getResult());
-
-   //    async function getResult() {
-   //    const result = await fetch("https://www.boredapi.com/api/activity/");
-   //    const activities = await result.json();
-   //    console.log(activities);
-   //    //  setRandomActivity(activities.activity);
-   //    //  setRandomActivityParticipants(activities.participants);
-   //    //  setRandomActivityPrice(activities.price);
-   // }
-   // };
 
    function changePriceToDollars(scale) {
       if (scale === 0) {
@@ -90,8 +92,9 @@ const SearchActivity = (props) => {
       <div>
          <Card className={classes.input}>
             <form onSubmit={searchActivityHandler}>
-               <label htmlFor="type">Type</label>
-               <select id="type" onChange={typeChangeHandler}>
+               <label htmlFor="Category">Category</label>
+               <select onChange={typeChangeHandler}>
+                  <option value="default-category">Choose Category...</option>
                   <option value="education">Education</option>
                   <option value="recreational">Recreational</option>
                   <option value="social">Social</option>
@@ -101,51 +104,42 @@ const SearchActivity = (props) => {
                   <option value="music">Music</option>
                   <option value="busywork">Busywork</option>
                </select>
-               {/* <label htmlFor="participants">Participants</label>
-            <input
-               id="participant"
-               type="number"
-               value={enteredParticipant}
-               onChange={participantChangeHandler}
-            />
-            <div>
-               <p>Select Price Range</p>${" "}
-               <input
-                  onChange={handleCheckboxtype}
-                  type="radio"
-                  name="prices"
-                  value="0.2"
-               />
-               $${" "}
-               <input
-                  onChange={handleCheckboxtype}
-                  type="radio"
-                  name="prices"
-                  value="0.4"
-               />
-               $$${" "}
-               <input
-                  onChange={handleCheckboxtype}
-                  type="radio"
-                  name="prices"
-                  value="0.6"
-               />
-               $$$${" "}
-               <input
-                  onChange={handleCheckboxtype}
-                  type="radio"
-                  name="prices"
-                  value="0.8"
-               />
-               $$$$${" "}
-               <input
-                  onChange={handleCheckboxtype}
-                  type="radio"
-                  name="prices"
-                  value="1"
-               />
-            </div> */}
-               <Button type="submit">Search Activity</Button>
+               <Button onClick={categoryResult} type="submit">
+                  Show Activity
+               </Button>
+            </form>
+
+            <form onSubmit={searchActivityHandler}>
+               <label htmlFor="participants">Participants</label>
+               <select onChange={participantChangeHandler}>
+                  <option value="default-participants">
+                     Choose Participants...
+                  </option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+               </select>
+               <Button onClick={participantResult} type="submit">
+                  Show Activity
+               </Button>
+            </form>
+
+            <form>
+               <label htmlFor="price">Price</label>
+               <select onChange={priceChangeHandler}>
+                  <option value="default-participants">Choose Price...</option>
+                  <option value="1">$</option>
+                  <option value="2">$$</option>
+                  <option value="3">$$$</option>
+                  <option value="4">$$$$</option>
+                  <option value="5">$$$$$</option>
+               </select>
+               <Button type="submit">Show Activity</Button>
             </form>
          </Card>
          <Card>
