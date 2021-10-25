@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import AddActivity from "./AddActivity";
 import ActivityList from "./ActivityList";
+import RandomActivity from './RandomActivity';
 
 const Home = () => {
    const [activityList, setActivityList] = useState([]);
@@ -25,6 +26,7 @@ const Home = () => {
          <h1>Search Activities</h1>
          <AddActivity onAddActivity={addActivityHandler} />
          <ActivityList activities={activityList} />
+         <RandomActivity />
       </div>
    );
 };
