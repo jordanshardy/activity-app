@@ -8,13 +8,20 @@ const SearchActivity = (props) => {
    const [enteredParticipant, setEnteredParticipant] = useState("");
    const [enteredPrice, setEnteredPrice] = useState("");
 
+   const [enteredActivity, setEnteredActivity] = useState("");
+   const [enteredActivityParticipants, setenteredActivityParticipants] =
+      useState("");
+   const [enteredActivityPrice, setEnteredActivityPrice] = useState("");
+
    async function getResult() {
-      let result = await fetch("https://www.boredapi.com/api/activity/");
+      let result = await fetch(
+         `https://www.boredapi.com/api/activity?type=${enteredType}`
+      );
       const activities = await result.json();
       console.log(activities);
-      //  setRandomActivity(activities.activity);
-      //  setRandomActivityParticipants(activities.participants);
-      //  setRandomActivityPrice(activities.price);
+      setEnteredActivity(activities.activity);
+      setenteredActivityParticipants(activities.participants);
+      setEnteredActivityPrice(activities.price);
    }
 
    const typeChangeHandler = (event) => {
@@ -63,21 +70,38 @@ const SearchActivity = (props) => {
    // }
    // };
 
+   function changePriceToDollars(scale) {
+      if (scale === 0) {
+         return "Free";
+      } else if (scale <= 0.2) {
+         return "$$";
+      } else if (scale <= 0.4) {
+         return "$$$";
+      } else if (scale <= 0.6) {
+         return "$$$";
+      } else if (scale <= 0.8) {
+         return "$$$$";
+      } else if (scale <= 1) {
+         return "$$$$$";
+      }
+   }
+
    return (
-      <Card className={classes.input}>
-         <form onSubmit={searchActivityHandler}>
-            <label htmlFor="type">Type</label>
-            <select id="type" onChange={typeChangeHandler}>
-               <option value="education">Education</option>
-               <option value="recreational">Recreational</option>
-               <option value="social">Social</option>
-               <option value="charity">Charity</option>
-               <option value="cooking">Cooking</option>
-               <option value="relaxation">Relaxation</option>
-               <option value="music">Music</option>
-               <option value="busywork">Busywork</option>
-            </select>
-            {/* <label htmlFor="participants">Participants</label>
+      <div>
+         <Card className={classes.input}>
+            <form onSubmit={searchActivityHandler}>
+               <label htmlFor="type">Type</label>
+               <select id="type" onChange={typeChangeHandler}>
+                  <option value="education">Education</option>
+                  <option value="recreational">Recreational</option>
+                  <option value="social">Social</option>
+                  <option value="charity">Charity</option>
+                  <option value="cooking">Cooking</option>
+                  <option value="relaxation">Relaxation</option>
+                  <option value="music">Music</option>
+                  <option value="busywork">Busywork</option>
+               </select>
+               {/* <label htmlFor="participants">Participants</label>
             <input
                id="participant"
                type="number"
@@ -121,9 +145,28 @@ const SearchActivity = (props) => {
                   value="1"
                />
             </div> */}
-            <Button type="submit">Search Activity</Button>
-         </form>
-      </Card>
+               <Button type="submit">Search Activity</Button>
+            </form>
+         </Card>
+         <Card>
+            {enteredActivity && (
+               <p>
+                  <strong>Activity:</strong> {enteredActivity}
+               </p>
+            )}
+            {enteredActivityParticipants && (
+               <p>
+                  <strong>Participants:</strong> {enteredActivityParticipants}
+               </p>
+            )}
+            {changePriceToDollars(enteredActivityPrice) && (
+               <p>
+                  <strong>Price:</strong>{" "}
+                  {changePriceToDollars(enteredActivityPrice)}
+               </p>
+            )}
+         </Card>
+      </div>
    );
 };
 
