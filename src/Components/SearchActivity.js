@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import Card from "./UI/Card";
-import classes from "./AddActivity.module.css";
+import classes from "./SearchActivity.module.css";
 import Button from "./UI/Button";
 
-const AddActivity = (props) => {
+const SearchActivity = (props) => {
    const [enteredType, setEnteredType] = useState("");
    const [enteredParticipant, setEnteredParticipant] = useState("");
    const [enteredPrice, setEnteredPrice] = useState("");
@@ -17,7 +17,7 @@ const AddActivity = (props) => {
       setEnteredParticipant(event.target.value);
    };
 
-   const priceChangeHandler = (event) => {
+   const handleCheckboxtype = (event) => {
       setEnteredPrice(event.target.value);
    };
 
@@ -43,7 +43,7 @@ const AddActivity = (props) => {
       setEnteredPrice("");
       // instead of console.log the data from username and age input, we use props and point to a function
       // (that was defined in App.js) to add the name and age to the empty state array
-      props.onAddActivity(
+      props.onSearchActivity(
          enteredType,
          enteredParticipant,
          enteredPrice,
@@ -52,12 +52,8 @@ const AddActivity = (props) => {
    };
 
    return (
-      // add class name from the adduser module called input. This classname however
-      //is a prop from card and has to be added to the Card component
       <Card className={classes.input}>
-         {/* {onSubmit executes a function when the form is submitted} */}
          <form onSubmit={addUserHandler}>
-            {/* htmlFor and id are used for screen readers. They connect the label to the input */}
             <label htmlFor="type">Type</label>
             <select id="type" onChange={typeChangeHandler}>
                <option value="education">Education</option>
@@ -76,24 +72,47 @@ const AddActivity = (props) => {
                value={enteredParticipant}
                onChange={participantChangeHandler}
             />
-            <label htmlFor="a">Price</label>
-            <input
-               id="price"
-               type="number"
-               value={enteredPrice}
-               onChange={priceChangeHandler}
-            />
-            <label htmlFor="accessibility">Accessibility</label>
-            <input
-               id="accessibility"
-               type="number"
-               value={enteredAccessibility}
-               onChange={accessibilityChangeHandler}
-            />
+            <div>
+               <p>Select Price Range</p>${" "}
+               <input
+                  onChange={handleCheckboxtype}
+                  type="radio"
+                  name="prices"
+                  value="0.2"
+               />
+               $${" "}
+               <input
+                  onChange={handleCheckboxtype}
+                  type="radio"
+                  name="prices"
+                  value="0.4"
+               />
+               $$${" "}
+               <input
+                  onChange={handleCheckboxtype}
+                  type="radio"
+                  name="prices"
+                  value="0.6"
+               />
+               $$$${" "}
+               <input
+                  onChange={handleCheckboxtype}
+                  type="radio"
+                  name="prices"
+                  value="0.8"
+               />
+               $$$$${" "}
+               <input
+                  onChange={handleCheckboxtype}
+                  type="radio"
+                  name="prices"
+                  value="1"
+               />
+            </div>
             <Button type="submit">Search Activity</Button>
          </form>
       </Card>
    );
 };
 
-export default AddActivity;
+export default SearchActivity;
