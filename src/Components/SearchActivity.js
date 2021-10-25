@@ -3,38 +3,13 @@ import Card from "./UI/Card";
 import classes from "./SearchActivity.module.css";
 import Button from "./UI/Button";
 
-
 // import React, { useEffect } from "react";
-
-
 
 const SearchActivity = (props) => {
    const [enteredType, setEnteredType] = useState("");
    const [enteredParticipant, setEnteredParticipant] = useState("");
    const [enteredPrice, setEnteredPrice] = useState("");
    const [enteredAccessibility, setEnteredAccessibility] = useState("");
-
-
-
-//    useEffect(() => {
-//       fetch("https://www.boredapi.com/api/activity")
-//     .then((response) => {
-//       if (response.ok) {
-//         return response.json();
-//       }
-//       throw response;
-//     })
-//     .then((data) => {
-//       setData(data);
-//     })
-//     .catch((error) => {
-//       console.error("Error fetching data: ", error);
-//       setError(error);
-//     })
-//     .finally(() => {
-//       setLoading(false);
-//     })
-// }, []);
 
 
    const typeChangeHandler = (event) => {
@@ -53,7 +28,7 @@ const SearchActivity = (props) => {
       setEnteredAccessibility(event.target.value);
    };
 
-   const addUserHandler = (event) => {
+   const addActivityHandler = (event) => {
       // preventDefault prevents the url from printing the value from the form
       event.preventDefault();
       setEnteredParticipant("");
@@ -70,7 +45,7 @@ const SearchActivity = (props) => {
 
    return (
       <Card className={classes.input}>
-         <form onSubmit={addUserHandler}>
+         <form onSubmit={addActivityHandler}>
             <label htmlFor="type">Type</label>
             <select id="type" onChange={typeChangeHandler}>
                <option value="education">Education</option>
