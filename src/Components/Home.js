@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import AddActivity from "./AddActivity";
+import SearchActivity from "./SearchActivity";
 import ActivityList from "./ActivityList";
 
 const Home = () => {
    const [activityList, setActivityList] = useState([]);
 
-   const addActivityHandler = (type, participants, price, accessibility) => {
+   const searchActivityHandler = (type, participants, price, accessibility) => {
       setActivityList((prevActivityList) => {
          return [
             ...prevActivityList,
@@ -23,7 +23,7 @@ const Home = () => {
    return (
       <div>
          <h1>Search Activities</h1>
-         <AddActivity onAddActivity={addActivityHandler} />
+         <SearchActivity onSearchActivity={searchActivityHandler} />
          <ActivityList activities={activityList} />
       </div>
    );
