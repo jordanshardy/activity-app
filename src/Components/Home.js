@@ -14,7 +14,6 @@ const Home = () => {
                participant: participants,
                price: price,
                accessibility: accessibility,
-               id: Math.random().toString(),
             },
          ];
       });

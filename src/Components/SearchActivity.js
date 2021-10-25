@@ -1,13 +1,41 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Card from "./UI/Card";
 import classes from "./SearchActivity.module.css";
 import Button from "./UI/Button";
+
+
+// import React, { useEffect } from "react";
+
+
 
 const SearchActivity = (props) => {
    const [enteredType, setEnteredType] = useState("");
    const [enteredParticipant, setEnteredParticipant] = useState("");
    const [enteredPrice, setEnteredPrice] = useState("");
    const [enteredAccessibility, setEnteredAccessibility] = useState("");
+
+
+
+//    useEffect(() => {
+//       fetch("https://www.boredapi.com/api/activity")
+//     .then((response) => {
+//       if (response.ok) {
+//         return response.json();
+//       }
+//       throw response;
+//     })
+//     .then((data) => {
+//       setData(data);
+//     })
+//     .catch((error) => {
+//       console.error("Error fetching data: ", error);
+//       setError(error);
+//     })
+//     .finally(() => {
+//       setLoading(false);
+//     })
+// }, []);
+
 
    const typeChangeHandler = (event) => {
       setEnteredType(event.target.value);
@@ -28,21 +56,10 @@ const SearchActivity = (props) => {
    const addUserHandler = (event) => {
       // preventDefault prevents the url from printing the value from the form
       event.preventDefault();
-      // if (
-      //    enteredParticipants.trim().length === 0 ||
-      //    enteredType.trim().length === 0
-      // ) {
-      //    return;
-      // }
-      // if (enteredParticipants.parseInt < 1) {
-      //    return;
-      // }
       setEnteredParticipant("");
       setEnteredType("");
       setEnteredAccessibility("");
       setEnteredPrice("");
-      // instead of console.log the data from username and age input, we use props and point to a function
-      // (that was defined in App.js) to add the name and age to the empty state array
       props.onSearchActivity(
          enteredType,
          enteredParticipant,
