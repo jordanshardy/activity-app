@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-
+import Card from './UI/Card'
+import Button from './UI/Button'
 const RandomActivityGenerator = () => {
    const [randomActivity, setRandomActivity] = useState("");
    const [randomActivityParticipants, setRandomActivityParticipants] =
@@ -37,22 +38,29 @@ const RandomActivityGenerator = () => {
 
    return (
       <>
-         <button onClick={resultHandler}>Do the thinking for me plz</button>
-         {randomActivity && (
-            <p>
-               <strong>Activity:</strong> {randomActivity}
-            </p>
-         )}
-         {randomActivityParticipants && (
-            <p>
-               <strong>Participants:</strong> {randomActivityParticipants}
-            </p>
-         )}
-         {randomActivityPrice && (
-            <p>
-               <strong>Price:</strong> {randomActivityPrice}
-            </p>
-         )}
+         <Button onClick={resultHandler}>Do the thinking for me plz</Button>
+         <div style={{
+            width: '50%',
+            margin: 'auto'
+         }}>
+         <Card >
+            {randomActivity && (
+               <p>
+                  <strong>Activity:</strong> {randomActivity}
+               </p>
+            )}
+            {randomActivityParticipants && (
+               <p>
+                  <strong>Participants:</strong> {randomActivityParticipants}
+               </p>
+            )}
+            {randomActivityPrice && (
+               <p>
+                  <strong>Price:</strong> {randomActivityPrice}
+               </p>
+            )}
+         </Card>
+         </div>
       </>
    );
 };
