@@ -185,6 +185,10 @@ const SearchActivity = (props) => {
                </Button>
             </form>
          </Card>
+         <div style={{
+            width: '50%',
+            margin: 'auto'
+         }}>
          <Card>
             {enteredActivity && (
                <p>
@@ -202,6 +206,7 @@ const SearchActivity = (props) => {
                </p>
             )}
          </Card>
+         </div>
       </>
    );
 };
