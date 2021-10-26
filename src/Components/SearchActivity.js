@@ -59,6 +59,25 @@ const SearchActivity = (props) => {
       }
    }
 
+   async function priceResult() {
+      categoryReset();
+      participantReset();
+      console.log(enteredPrice);
+
+      if (enteredPrice) {
+         let result = await fetch(
+            `https://www.boredapi.com/api/activity??minprice=0&maxprice=${enteredPrice}`
+         );
+         const activities = await result.json();
+         console.log(activities);
+         setEnteredActivity(activities.activity);
+         setenteredActivityParticipants(activities.participants);
+         setEnteredActivityPrice(changePriceToDollars(activities.price));
+      } else {
+         return;
+      }
+   }
+
    const typeChangeHandler = (event) => {
       setEnteredType(event.target.value);
    };
@@ -148,17 +167,19 @@ const SearchActivity = (props) => {
                </Button>
             </form>
 
-            <form>
+            <form onSubmit={searchActivityHandler}>
                <label htmlFor="price">Price</label>
                <select onChange={priceChangeHandler}>
                   <option value="default-participants">Choose Price...</option>
-                  <option value="1">$</option>
-                  <option value="2">$$</option>
-                  <option value="3">$$$</option>
-                  <option value="4">$$$$</option>
-                  <option value="5">$$$$$</option>
+                  <option value={0.2}>$</option>
+                  <option value={0.4}>$$</option>
+                  <option value={0.6}>$$$</option>
+                  <option value={0.8}>$$$$</option>
+                  <option value={1}>$$$$$</option>
                </select>
-               <Button type="submit">Show Activity</Button>
+               <Button onClick={priceResult} type="submit">
+                  Show Activity
+               </Button>
             </form>
          </Card>
          <Card>
@@ -174,8 +195,7 @@ const SearchActivity = (props) => {
             )}
             {enteredActivityPrice && (
                <p>
-                  <strong>Price:</strong>{" "}
-                  {changePriceToDollars(enteredActivityPrice)}
+                  <strong>Price:</strong> {enteredActivityPrice}
                </p>
             )}
          </Card>
