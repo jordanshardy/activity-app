@@ -1,7 +1,5 @@
-import Button from '@mui/material/Button'
+// import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
-
-// import {jsx, css, Global, ClassNames} from '@emotion/react'
 function About() {
    const image = "https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/113d1046-6bdc-4475-a781-99f6cf7d1acd/001-understand-yourself-large-opt.png"
    return (
