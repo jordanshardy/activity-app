@@ -80,7 +80,6 @@ const SearchActivity = (props) => {
       }
    }
 
-
    const typeChangeHandler = (event) => {
       setEnteredType(event.target.value);
    };
@@ -147,6 +146,7 @@ const SearchActivity = (props) => {
                   <option value="music">Music</option>
                   <option value="busywork">Busywork</option>
                </select>
+               <br></br>
                <Button onClick={categoryResult} type="submit">
                   Show Activity
                </Button>
@@ -165,6 +165,7 @@ const SearchActivity = (props) => {
                   <option value="7">7</option>
                   <option value="8">8</option>
                </select>
+               <br></br>
                <Button onClick={participantResult} type="submit">
                   Show Activity
                </Button>
@@ -180,32 +181,36 @@ const SearchActivity = (props) => {
                   <option value={0.8}>$$$$</option>
                   <option value={1}>$$$$$</option>
                </select>
+               <br></br>
                <Button onClick={priceResult} type="submit">
                   Show Activity
                </Button>
             </form>
          </Card>
-         <div style={{
-            width: '50%',
-            margin: 'auto'
-         }}>
-         <Card>
-            {enteredActivity && (
-               <p>
-                  <strong>Activity:</strong> {enteredActivity}
-               </p>
-            )}
-            {enteredActivityParticipants && (
-               <p>
-                  <strong>Participants:</strong> {enteredActivityParticipants}
-               </p>
-            )}
-            {enteredActivityPrice && (
-               <p>
-                  <strong>Price:</strong> {enteredActivityPrice}
-               </p>
-            )}
-         </Card>
+         <div
+            style={{
+               width: "50%",
+               margin: "auto",
+            }}
+         >
+            <Card>
+               {enteredActivity && (
+                  <p>
+                     <strong>Activity:</strong> {enteredActivity}
+                  </p>
+               )}
+               {enteredActivityParticipants && (
+                  <p>
+                     <strong>Participants:</strong>{" "}
+                     {enteredActivityParticipants}
+                  </p>
+               )}
+               {enteredActivityPrice && (
+                  <p>
+                     <strong>Price:</strong> {enteredActivityPrice}
+                  </p>
+               )}
+            </Card>
          </div>
       </>
    );
