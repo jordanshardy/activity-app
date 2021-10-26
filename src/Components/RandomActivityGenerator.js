@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Button from "./UI/Button";
 
 const RandomActivityGenerator = () => {
    const [randomActivity, setRandomActivity] = useState("");
@@ -13,7 +12,7 @@ const RandomActivityGenerator = () => {
       console.log(activities);
       setRandomActivity(activities.activity);
       setRandomActivityParticipants(activities.participants);
-      setRandomActivityPrice(activities.price);
+      setRandomActivityPrice(changePriceToDollars(activities.price));
    }
 
    function resultHandler(e) {
@@ -38,7 +37,7 @@ const RandomActivityGenerator = () => {
 
    return (
       <>
-         <Button onClick={resultHandler}>Do the thinking for me plz!</Button>
+         <button onClick={resultHandler}>Do the thinking for me plz</button>
          {randomActivity && (
             <p>
                <strong>Activity:</strong> {randomActivity}
@@ -49,10 +48,9 @@ const RandomActivityGenerator = () => {
                <strong>Participants:</strong> {randomActivityParticipants}
             </p>
          )}
-         {changePriceToDollars(randomActivityPrice) && (
+         {randomActivityPrice && (
             <p>
-               <strong>Price:</strong>{" "}
-               {changePriceToDollars(randomActivityPrice)}
+               <strong>Price:</strong> {randomActivityPrice}
             </p>
          )}
       </>
