@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import SearchActivity from "./SearchActivity";
 
 const Home = () => {
-   const [activityList, setActivityList] = useState([]);
-
 
    return (
       <div>
