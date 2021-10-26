@@ -11,7 +11,7 @@ const RandomActivityGenerator = () => {
         console.log(activities)
         setRandomActivity(activities.activity)
         setRandomActivityParticipants(activities.participants)
-        setRandomActivityPrice(activities.price)
+        setRandomActivityPrice(changePriceToDollars(activities.price))
     }
 
     function resultHandler(e) {
@@ -48,8 +48,8 @@ const RandomActivityGenerator = () => {
                 (<p><strong>Activity:</strong> {randomActivity}</p>)}
             {randomActivityParticipants && 
                 (<p><strong>Participants:</strong> {randomActivityParticipants}</p>)}
-            {(changePriceToDollars(randomActivityPrice)) && 
-                (<p><strong>Price:</strong> {changePriceToDollars(randomActivityPrice)}</p>)}
+            {randomActivityPrice && 
+                (<p><strong>Price:</strong> {randomActivityPrice}</p>)}
         </>
     )
 }
