@@ -13,22 +13,18 @@ const SearchActivity = (props) => {
       useState("");
    const [enteredActivityPrice, setEnteredActivityPrice] = useState("");
 
+   function categoryReset() {
+      var dropDown = document.getElementById("category");
+      dropDown.selectedIndex = 0;
+   }
 
-
-    function categoryReset() {
-       var dropDown = document.getElementById("category");
-       dropDown.selectedIndex = 0;
-    }
-
-    function participantReset() {
-       var dropDown = document.getElementById("participant");
-       dropDown.selectedIndex = 0;
-    }
-
+   function participantReset() {
+      var dropDown = document.getElementById("participant");
+      dropDown.selectedIndex = 0;
+   }
 
    // function to update url based on Category
    async function categoryResult() {
-
       participantReset();
 
       if (enteredType) {
@@ -39,28 +35,25 @@ const SearchActivity = (props) => {
          console.log(activities);
          setEnteredActivity(activities.activity);
          setenteredActivityParticipants(activities.participants);
-         setEnteredActivityPrice(activities.price);
+         setEnteredActivityPrice(changePriceToDollars(activities.price));
       } else {
          return;
       }
    }
 
    async function participantResult() {
-
       categoryReset();
 
       if (enteredParticipant) {
          let result = await fetch(
-            `https://www.boredapi.com/api/activity?particpants=${parseInt(
-               enteredParticipant
-            )}`
+            `https://www.boredapi.com/api/activity?participants=${enteredParticipant}`
          );
          const activities = await result.json();
          console.log(activities);
-         console.log(parseInt(enteredParticipant));
+         console.log(enteredParticipant);
          setEnteredActivity(activities.activity);
          setenteredActivityParticipants(activities.participants);
-         setEnteredActivityPrice(activities.price);
+         setEnteredActivityPrice(changePriceToDollars(activities.price));
       } else {
          return;
       }
@@ -179,7 +172,7 @@ const SearchActivity = (props) => {
                   <strong>Participants:</strong> {enteredActivityParticipants}
                </p>
             )}
-            {changePriceToDollars(enteredActivityPrice) && (
+            {enteredActivityPrice && (
                <p>
                   <strong>Price:</strong>{" "}
                   {changePriceToDollars(enteredActivityPrice)}
